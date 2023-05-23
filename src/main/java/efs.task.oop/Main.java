@@ -2,6 +2,8 @@ package efs.task.oop;
 
 
 
+ 
+
  import java.util.Random;
 
 interface Fighter {
@@ -138,6 +140,7 @@ class Monster implements Fighter {
             }
         }
     }
+     
 }
 
 public class Main {
@@ -155,12 +158,7 @@ public class Main {
         deckardCain.sayHello();
         warriv.sayHello();
         flawia.sayHello();
-        //Villager kashya = new Villager("Kashya", 30);
-       // Villager akara = new ExtraordinaryVillager("Akara", 40);
-        //Villager gheed = new Villager("Gheed", 50);
-        //ExtraordinaryVillager deckardCain = new ExtraordinaryVillager("Deckard Cain", 85);
-        //Villager warriv = new Villager("Warriv", 35);
-        //Villager flawia = new Villager("Flawia", 25);
+        
         
         ExtraordinaryVillager DeckardCain = new ExtraordinaryVillager("Deckard Cain", 85, ExtraordinaryVillager.Skill.IDENTIFY);
         ExtraordinaryVillager Akara = new ExtraordinaryVillager("Akara", 40, ExtraordinaryVillager.Skill.SHELTER);
@@ -171,9 +169,22 @@ public class Main {
 
         Monster andariel = new Monster(10, 70);
         Monster blacksmith = new Monster(100, 25);
-
+      
         int monstersHealth = andariel.getHealth() + blacksmith.getHealth();
+        System.out.println("Initial monsters' health: " + monstersHealth);
 
+        andariel.takeHit(20);
+        System.out.println("Andariel's health after taking hit: " + andariel.getHealth());
+        System.out.println("Monsters' health after Andariel's hit: " + monstersHealth);
+
+        blacksmith.takeHit(10);
+        System.out.println("Blacksmith's health after taking hit: " + blacksmith.getHealth());
+        System.out.println("Monsters' health after Blacksmith's hit: " + monstersHealth);
+
+        andariel.attack(blacksmith);
+        System.out.println("Blacksmith's health after Andariel's attack: " + blacksmith.getHealth());
+        System.out.println("Monsters' health after attack: " + monstersHealth);
+    
         Random random = new Random();
         boolean villagersTurn = true;
 
@@ -224,6 +235,11 @@ public class Main {
         Akara.attack(andariel);
     }
 }
+
+ 
+    
+
+
 
  
     
