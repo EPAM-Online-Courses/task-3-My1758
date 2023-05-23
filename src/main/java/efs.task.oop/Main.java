@@ -21,10 +21,10 @@ class Villager implements Fighter {
         this.health = 100;
         this.isDead = false;
     }
-    void setName(String name){
+    public void setName(String name){
         this.name=name;
     }
-    void setAge(int age){
+    public void setAge(int age){
         this.age=age;
     }
 
@@ -85,10 +85,16 @@ class ExtraordinaryVillager extends Villager {
     }
 
     private Skill skill;
+    private boolean dead;
     public ExtraordinaryVillager(String name, int age,Skill skill) {
         super(name, age);
         this.skill=skill;
+        this.dead=false;
     }
+    void setSkill(Skill skil ){
+        this.skill=skill;
+    }
+    
 
     @Override
     public void attack(Fighter victim) {
@@ -99,13 +105,64 @@ class ExtraordinaryVillager extends Villager {
     public void takeHit(int damage) {
         // ExtraordinaryVillager dies from one hit
         super.takeHit(getHealth());
+        if(getHealth() <=0){
+            dead=true;
+        }
     }
     public void sayHello() {
         System.out.println("Greetings traveler... I'm " + getName() + " and I'm " + getAge() + " years old. " + skill.getDescription());
     }
+    public boolean isDead() {
+        return dead;
+    }
 }
+/*class Monsters {
+    static final Monster andariel = new Monster() {
+        private int health = 10;
+        private int damage = 70;
 
-class Monster implements Fighter {
+        public int getHealth() {
+            return health;
+        }
+
+        public int getDamage() {
+            return damage;
+        }
+
+        public void takeHit(int damage) {
+            health -= damage;
+        }
+
+        public void attack(Fighter victim) {
+            victim.takeHit(damage);
+        }
+    };
+
+    static final Monster blacksmith = new Monster() {
+        private int health = 100;
+        private int damage = 25;
+
+        public int getHealth() {
+            return health;
+        }
+
+        public int getDamage() {
+            return damage;
+        }
+
+        public void takeHit(int damage) {
+            health -= damage;
+        }
+
+        public void attack(Fighter victim) {
+            victim.takeHit(damage);
+        }
+    };
+
+    static int monstersHealth = andariel.getHealth() + blacksmith.getHealth();
+}
+ */
+ class Monster implements Fighter {
     private int health;
     private int damage;
     private boolean isDead;
@@ -150,8 +207,10 @@ class Monster implements Fighter {
             }
         }
     }
-     
+    
 }
+ 
+
 
 public class Main {
     public static void main(String[] args) {
@@ -176,7 +235,7 @@ public class Main {
         DeckardCain.sayHello();
         Akara.sayHello();
         Fighter[] villagers = { kashya, akara, gheed, deckardCain, warriv, flawia };
-
+        
         Monster andariel = new Monster(10, 70);
         Monster blacksmith = new Monster(100, 25);
       
@@ -271,11 +330,13 @@ public class Main {
 }
 
  
+
+ 
+    
+
     
 
 
-
- 
     
 
 
