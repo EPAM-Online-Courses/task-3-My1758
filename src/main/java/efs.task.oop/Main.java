@@ -1,9 +1,6 @@
 package efs.task.oop;
 
 
-
- 
-
  import java.util.Random;
 
 interface Fighter {
@@ -184,13 +181,27 @@ public class Main {
         andariel.attack(blacksmith);
         System.out.println("Blacksmith's health after Andariel's attack: " + blacksmith.getHealth());
         System.out.println("Monsters' health after attack: " + monstersHealth);
-    
+
+        Object objectDeckardCain = deckardCain;
+        Object objectAkara = akara;
+        // Przykład rzutowania i wywołania metody klasy Villager
+        if (objectDeckardCain instanceof Villager) {
+            Villager villager = (Villager) objectDeckardCain;
+            villager.attack(deckardCain);
+        }
+
+        // Przykład rzutowania i wywołania metody klasy ExtraordinaryVillager
+        if (objectAkara instanceof ExtraordinaryVillager) {
+            ExtraordinaryVillager extraordinaryVillager = (ExtraordinaryVillager) objectAkara;
+            extraordinaryVillager.attack(akara);
+        }
+
         Random random = new Random();
         boolean villagersTurn = true;
 
-        while (monstersHealth > 0) {
+        while (andariel.getHealth() > 0 || blacksmith.getHealth() > 0) {
             if (villagersTurn) {
-                for (Fighter villager : villagers) {
+                for (Fighter villager : new Fighter[]{kashya, akara, gheed, deckardCain, warriv, flawia}) {
                     if (!villager.isDead()) {
                         villager.attack(andariel);
                         villager.attack(blacksmith);
@@ -212,10 +223,17 @@ public class Main {
 
             System.out.println("Potwory posiadaja jeszcze " + (andariel.getHealth() + blacksmith.getHealth()) + " punkty zycia");
 
-            for (Fighter villager : villagers) {
+            boolean anyVillagerAlive = false;
+            for (Fighter villager : new Fighter[]{kashya, akara, gheed, deckardCain, warriv, flawia}) {
                 if (!villager.isDead()) {
                     System.out.println("Aktualnie walczacy osadnik to " + ((Villager) villager).getName());
+                    anyVillagerAlive = true;
                 }
+            }
+
+            if (!anyVillagerAlive) {
+                System.out.println("Obozowisko zostalo zniszczone!");
+                break;
             }
 
             try {
@@ -225,10 +243,12 @@ public class Main {
             }
         }
 
-        System.out.println("Obozowisko ocalone!");
+        if (andariel.getHealth() <= 0 && blacksmith.getHealth() <= 0) {
+            System.out.println("Obozowisko ocalone!");
+        }
 
-        DeckardCain = (ExtraordinaryVillager) DeckardCain;
-        Akara = (ExtraordinaryVillager) Akara;
+        deckardCain = (ExtraordinaryVillager) deckardCain;
+        akara = (ExtraordinaryVillager) akara;
 
         
         DeckardCain.attack(andariel);
@@ -237,6 +257,9 @@ public class Main {
 }
 
  
+    
+
+
     
 
 
