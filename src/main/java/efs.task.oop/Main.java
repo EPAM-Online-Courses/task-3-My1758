@@ -21,18 +21,24 @@ class Villager implements Fighter {
         this.health = 100;
         this.isDead = false;
     }
+    void setName(String name){
+        this.name=name;
+    }
+    void setAge(int age){
+        this.age=age;
+    }
 
-    int getHealth() {
+    public int getHealth() {
         return health;
     }
 
     public boolean isDead() {
         return isDead;
     }
-    String getName(){
+    public String getName(){
         return name;
     }
-    int getAge(){
+    public int getAge(){
         return age;
     }
 
@@ -70,7 +76,9 @@ class ExtraordinaryVillager extends Villager {
         Skill(String description) {
             this.description = description;
         }
-
+        void setDescription(String depcription){
+            this.description=depcription;
+        }
         public String getDescription() {
             return description;
         }
@@ -107,7 +115,12 @@ class Monster implements Fighter {
         this.damage = damage;
         this.isDead = false;
     }
-
+    void setHealth(int health){
+        this.health=health;
+    }
+    void setDamage(int damage){
+        this.damage=damage;
+    }
     public int getHealth() {
         return health;
     }
@@ -250,11 +263,17 @@ public class Main {
         deckardCain = (ExtraordinaryVillager) deckardCain;
         akara = (ExtraordinaryVillager) akara;
 
-        
         DeckardCain.attack(andariel);
-        Akara.attack(andariel);
+        Akara.takeHit(10);
+        //DeckardCain.attack(andariel);
+       // Akara.attack(andariel);
     }
 }
+
+ 
+    
+
+
 
  
     
