@@ -155,7 +155,7 @@ class ExtraordinaryVillager  extends Villager{
     @Override
     public void takeHit(int damage) {
         // ExtraordinaryVillagers die from one hit
-        super.takeHit(damage);
+       // super.takeHit(damage);
         isDead = true;
         
     }
