@@ -1,5 +1,7 @@
 package efs.task.oop;
 
+import java.util.Random;
+
 interface Fighter {
     void attack(Fighter victim);
     void takeHit(int damage);
@@ -185,8 +187,68 @@ public class Main {
        deckardCain.sayHello();
         villager5.sayHello();
         villager6.sayHello();
+        
+        Object objectDeckardCain = deckardCain;
+        Object objectAkara = akara;
 
         
+        Random random = new Random();
+        boolean villagersTurn = true;
+
+        while (Monsters.andariel.getHealth() > 0 || Monsters.blacksmith.getHealth() > 0) {
+            if (villagersTurn) {
+                for (Fighter villager : new Fighter[]{villager1, akara, villager3, deckardCain, villager5, villager6}) {
+                    if (!villager.isDead()) {
+                        villager.attack(Monsters.andariel);
+                        villager.attack(Monsters.blacksmith);
+                    }
+                }
+            } else {
+                if (!Monsters.andariel.isDead()) {
+                    Monsters.andariel.attack(deckardCain);
+                    Monsters.andariel.attack(akara);
+                }
+
+                if (!Monsters.blacksmith.isDead()) {
+                    Monsters.blacksmith.attack(deckardCain);
+                    Monsters.blacksmith.attack(akara);
+                }
+            }
+
+            villagersTurn = !villagersTurn;
+
+            System.out.println("Potwory posiadaja jeszcze " + (Monsters.andariel.getHealth() + Monsters.blacksmith.getHealth()) + " punkty zycia");
+
+            boolean anyVillagerAlive = false;
+            for (Fighter villager : new Fighter[]{villager1, akara, villager3, deckardCain, villager5, villager6}) {
+                if (!villager.isDead()) {
+                    System.out.println("Aktualnie walczacy osadnik to " + ((Villager) villager).getName());
+                    anyVillagerAlive = true;
+                }
+            }
+
+            if (!anyVillagerAlive) {
+                System.out.println("Obozowisko zostalo zniszczone!");
+                break;
+            }
+
+            try {
+                Thread.sleep(1000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+
+        if (Monsters.andariel.getHealth() <= 0 && Monsters.blacksmith.getHealth() <= 0) {
+            System.out.println("Obozowisko ocalone!");
+        }
+
+        deckardCain = (ExtraordinaryVillager) deckardCain;
+        akara = (ExtraordinaryVillager) akara;
+
+        // Sprawdź, czy można wywołać metody z klasy ExtraordinaryVillager
+        deckardCain.attack(Monsters.andariel);
+        akara.takeHit(10);
     }
 }
 
