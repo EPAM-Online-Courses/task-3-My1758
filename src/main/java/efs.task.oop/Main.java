@@ -2,6 +2,7 @@ package efs.task.oop;
 
 public class Main {
     public static void main(String[] args) {
+        
         Villager kashya = new Villager("Kashya", 30);
         Villager akara = new ExtraordinaryVillager("Akara", 40, ExtraordinaryVillager.Skill.SHELTER);
         Villager gheed = new Villager("Gheed", 50);
